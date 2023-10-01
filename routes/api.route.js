@@ -26,4 +26,11 @@ router.get("/posts-by-id/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+router.get("/data-by-id/:id", async (req, res, next) => {
+    const { id } = req.params;
+    const data = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    const response = await data.json()
+    res.json(response)
+})
 module.exports = router;
