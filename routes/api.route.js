@@ -6,11 +6,24 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/data", async (req, res, next) => {
-  const url = "https://jsonplaceholder.typicode.com/users";
-  const data = await fetch(url);
-  const response = await data.json();
-  res.json(response);
-  console.log(response)
+  try {
+    const url = "https://jsonplaceholder.typicode.com/users";
+    const data = await fetch(url);
+    const response = await data.json();
+    res.json(response);
+  } catch (error) {
+    next(error);
+  }
 });
 
+router.get("/posts-by-id/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const data = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    const response = await data.json();
+    res.json(response);
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
